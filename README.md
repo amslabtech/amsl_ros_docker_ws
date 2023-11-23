@@ -51,3 +51,16 @@ make install TARGET_WS=<ROS_workspace> ROS_DISTRO=noetic
 
 ### docker composeの使い方
 `<ROS workspace>/src`で`docker compose -f .devcontainer/docker-compose.yml up`すれば上記と同様のコンテナが立ち上がる。
+
+
+## パッケージのビルド
+上記のように起動したコンテナ内では、パッケージのビルドに[`colcon`](https://colcon.readthedocs.io/en/released/index.html)を使う。`colcon`はcatkinパッケージでもamentパッケージでもpure cmakeパッケージでも自動判別して適切にビルドしてくれる。そのため対象のパッケージがROS 1でもROS 2でも同じコマンドでビルドできる。コンテナ内では`cb`というエイリアスが定義されているので、活用すると良い。
+なお、`colcon`コマンドは`<ROS workspace>`ディレクトリで実行する必要がある。
+
+代表的なコマンドを以下に示す。
+- `cb`
+  - ワークスペース全体をビルド
+- `cb --packages-select package_1`
+  - `package_1`をビルド
+- `colcon test --pacakges-select package_1`
+  - `package_1`のテストを実行
