@@ -32,9 +32,10 @@ make install TARGET_WS=<ROS_workspace> ROS_DISTRO=noetic
 ```
 <ROS workspace>
 ├─ cache
-│ ├─ build
-│ ├─ install
-│ └─ log
+│ └─ ROS_DISTRO
+│   ├─ build
+│   ├─ install
+│   └─ log
 └─ src
   ├─ .devcontainer
   │ ├─ devcontainer.json
