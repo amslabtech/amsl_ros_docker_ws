@@ -22,7 +22,4 @@ RUN echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
 RUN echo "export _colcon_cd_root=/home/user/ws" >> ~/.bashrc
 RUN echo "alias cb='colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo --event-handlers console_direct+'" >> ~/.bashrc
 
-# For ROS 2
-RUN echo "export ROS_LOCALHOST_ONLY=1" >> ~/.bashrc
-
 CMD ["/bin/bash"]
