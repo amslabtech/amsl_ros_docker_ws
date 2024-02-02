@@ -9,6 +9,7 @@ services:
         - ROS_DISTRO=humble
     working_dir: /home/user/ws
     network_mode: "host"
+    ipc: host
     privileged: true
     environment:
       - DISPLAY=${DISPLAY}
