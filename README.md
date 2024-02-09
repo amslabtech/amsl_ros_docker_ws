@@ -12,7 +12,7 @@
 - nvidia-container-runtime (必要な場合)
 
 ## 事前準備
-ディレクトリ構成を次のようにしておく。`<ROS workspace>`は任意のディレクトリ。
+ディレクトリ構成を次のようにしておく。`<ROS workspace>`はROSのworkspaceとして扱うディレクトリのパス。例えば`~/ws`など。`src`の下の`package_*`は無くても良い。
 ```
 <ROS workspace>
 └─ src
@@ -23,6 +23,7 @@
 
 ## セットアップ
 ```
+cd <任意のディレクトリ>
 git clone git@github.com:amslabtech/amsl_ros_docker_ws.git
 cd amsl_ros_docker_ws
 make install TARGET_WS=<ROS_workspace> ROS_DISTRO=noetic NVIDIA_DOCKER=false
