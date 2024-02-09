@@ -25,7 +25,7 @@
 ```
 git clone git@github.com:amslabtech/amsl_ros_docker_ws.git
 cd amsl_ros_docker_ws
-make install TARGET_WS=<ROS_workspace> ROS_DISTRO=noetic
+make install TARGET_WS=<ROS_workspace> ROS_DISTRO=noetic NVIDIA_DOCKER=false
 ```
 
 セットアップ後、ディレクトリ構成は以下のようになる。
