@@ -12,6 +12,10 @@ services:
     privileged: true
     environment:
       - DISPLAY=${DISPLAY}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - __NV_PRIME_RENDER_OFFLOAD=1
+      - __GLX_VENDOR_LIBRARY_NAME=nvidia
     volumes:
       - type: bind
         source: /tmp/.X11-unix
@@ -39,6 +43,13 @@ services:
         target: /var/cache/apt/archives
     tty: true
     command: /bin/bash -c "sudo apt update && sudo rosdep update && sudo rosdep install -riy --from-paths src && bash"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
 
 volumes:
   apt-cache-apt-lists:

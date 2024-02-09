@@ -1,17 +1,22 @@
 version: "3.8"
 
 services:
-  ros-noetic-docker-ws:
+  ros-humble-docker-ws:
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        - ROS_DISTRO=noetic
+        - ROS_DISTRO=humble
     working_dir: /home/user/ws
     network_mode: "host"
+    ipc: host
     privileged: true
     environment:
       - DISPLAY=${DISPLAY}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - __NV_PRIME_RENDER_OFFLOAD=1
+      - __GLX_VENDOR_LIBRARY_NAME=nvidia
     volumes:
       - type: bind
         source: /tmp/.X11-unix
@@ -23,13 +28,13 @@ services:
         source: ..
         target: /home/user/ws/src
       - type: bind
-        source: ../../cache/noetic/build
+        source: ../../cache/humble/build
         target: /home/user/ws/build
       - type: bind
-        source: ../../cache/noetic/install
+        source: ../../cache/humble/install
         target: /home/user/ws/install
       - type: bind
-        source: ../../cache/noetic/log
+        source: ../../cache/humble/log
         target: /home/user/ws/log
       - type: volume
         source: apt-cache-apt-lists
@@ -39,9 +44,16 @@ services:
         target: /var/cache/apt/archives
     tty: true
     command: /bin/bash -c "sudo apt update && sudo rosdep update && sudo rosdep install -riy --from-paths src && bash"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
 
 volumes:
   apt-cache-apt-lists:
-    name: ros-noetic-apt-cache-apt-lists
+    name: ros-humble-apt-cache-apt-lists
   apt-cache-apt-archives:
-    name: ros-noetic-apt-cache-apt-archives
+    name: ros-humble-apt-cache-apt-archives
