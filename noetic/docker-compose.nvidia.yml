@@ -42,7 +42,7 @@ services:
         source: apt-cache-apt-archives
         target: /var/cache/apt/archives
     tty: true
-    command: /bin/bash -c "sudo apt update && sudo rosdep update && sudo rosdep install -riy --from-paths src && bash"
+    command: /bin/bash -c "sudo apt update && sudo rosdep update && sudo rosdep install -riy --from-paths src --rosdistro noetic && bash"
     deploy:
       resources:
         reservations:
